@@ -5,7 +5,8 @@
     "dev": "tsx watch src/server.ts",
     "test": "jest",
     "build": "npm run test && tsup src",
-    "lint": "eslint --ext .ts src"
+    "lint": "eslint --ext .ts src --fix",
+    "prepare": "lefthook install"
   },
   "keywords": [],
   "author": "",
