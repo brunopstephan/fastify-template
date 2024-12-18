@@ -1,28 +1,27 @@
-import fastify from 'fastify'
+import { FastifyInstance } from 'fastify'
 import { describe, test, beforeAll, afterAll, expect } from '@jest/globals'
 
-const app = fastify()
+import { server } from './server'
 
-beforeAll(async () => {
-  app.get('/', async () => {
-    return 'Hello, world!'
+describe('server health test', () => {
+  let app: FastifyInstance
+
+  beforeAll(async () => {
+    app = server()
+    await app.ready()
   })
 
-  await app.ready()
-})
+  afterAll(async () => {
+    await app.close()
+  })
 
-afterAll(async () => {
-  await app.close()
-})
-
-describe('Server tests', () => {
-  test('GET / should return 200', async () => {
+  test('GET /health-check should return 200', async () => {
     const response = await app.inject({
       method: 'GET',
-      url: '/',
+      url: '/health-check',
     })
 
     expect(response.statusCode).toBe(200)
-    expect(response.payload).toContain('Hello, world!')
+    expect(response.json()).toEqual({ message: 'ok' })
   })
 })

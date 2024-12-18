@@ -2,7 +2,7 @@
   "name": "fastify-template",
   "version": "1.0.0",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
+    "dev": "tsx watch src/main.ts",
     "test": "jest",
     "build": "npm run test && tsup src",
     "lint": "eslint --ext .ts src --fix",
